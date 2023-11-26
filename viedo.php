@@ -32,7 +32,7 @@
     while($wynik = mysqli_fetch_row($query))
     {
         echo "<div class='blokgenerowany'>
-        <h4 class='blokgenerowany'>$wynik[0]. $wynik[1]</h4>
+        <h4'>$wynik[0]. $wynik[1]</h4>
         <img src='$wynik[3]' alt='film' />
         <p>$wynik[2]</p>
         </div>";
@@ -44,10 +44,38 @@
     </div>
     <div id="listaF">
         <h3>filmy fantastyczne</h3>
+        <?php
+        $conn =mysqli_connect("localhost","root", "", "filmy");
+        $query = mysqli_query($conn, "SELECT id,nazwa,opis,zdjecie FROM produkty WHERE Rodzaje_id = 12");
+        while($wynik = mysqli_fetch_row($query))
+            {
+            echo "<div class='blokgenerowany'>
+            <h4'>$wynik[0]. $wynik[1]</h4>
+            <img src='$wynik[3]' alt='film' />
+            <p>$wynik[2]</p>
+            </div>";
+            }
+        mysqli_close($conn);
+        ?>
     </div>
     <footer>
-        <form action="viedo.php" method="post"></form>
-        Stdone wykonal:00000000
+        <form action="viedo.php" method="post">
+            usun film nr<input type="number" name="idF"/>
+            <button>usun film</button>
+        </form>
+        <?php
+        
+        if(!empty($idfilmu = ($_POST['idF'])))
+        {
+            $idfilmu = ($_POST['idF']);
+            $conn =mysqli_connect("localhost","root", "", "filmy");
+            $query = mysqli_query($conn, "DELETE FROM produkty WHERE id=$idfilmu;");
+            mysqli_close($conn);
+        }
+
+        ?>
+        <a href="ja@poczta.com">Strone wykonal:00000000</a>
+        
     </footer>
 </body>
 </html>
